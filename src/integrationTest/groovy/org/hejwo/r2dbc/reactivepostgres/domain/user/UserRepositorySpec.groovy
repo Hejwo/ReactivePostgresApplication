@@ -1,9 +1,15 @@
 package org.hejwo.r2dbc.reactivepostgres.domain.user
 
-import org.hejwo.r2dbc.reactivepostgres.IntegrationSpec
-import org.springframework.beans.factory.annotation.Autowired
 
-class UserRepositorySpec extends IntegrationSpec {
+import org.hejwo.r2dbc.reactivepostgres.ReactivePostgresApplication
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
+import spock.lang.Specification
+
+@SpringBootTest
+@ContextConfiguration(classes = [ReactivePostgresApplication])
+class UserRepositorySpec extends Specification {
 
     @Autowired
     UserRepository repository
