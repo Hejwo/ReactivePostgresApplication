@@ -53,8 +53,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	// R2DBC
-	compile group: 'org.springframework.data', 	name: 'spring-data-r2dbc', 	version: '1.0.0.M1'
-	compile group: 'io.r2dbc', 					name: 'r2dbc-postgresql', 	version: '1.0.0.M6'
+	compile group: 'org.springframework.data', name: 'spring-data-r2dbc', version: '1.0.0.M1'
+	compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'
 	
 	// Database
 	compile 'ru.yandex.qatools.embed:postgresql-embedded:1.21'
