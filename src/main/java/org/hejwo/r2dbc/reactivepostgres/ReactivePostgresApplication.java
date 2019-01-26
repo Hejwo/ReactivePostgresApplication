@@ -1,13 +1,13 @@
-package org.hejwo.r2dbc.ReactivePostgreSql;
+package org.hejwo.r2dbc.reactivepostgres;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReactivePostgreSqlApplication {
+public class ReactivePostgresApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReactivePostgreSqlApplication.class, args);
+		SpringApplication.run(ReactivePostgresApplication.class, args);
 	}
 
 }

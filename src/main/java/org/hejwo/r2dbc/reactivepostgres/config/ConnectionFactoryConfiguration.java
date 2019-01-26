@@ -1,4 +1,4 @@
-package org.hejwo.r2dbc.ReactivePostgreSql.config;
+package org.hejwo.r2dbc.reactivepostgres.config;
 
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;

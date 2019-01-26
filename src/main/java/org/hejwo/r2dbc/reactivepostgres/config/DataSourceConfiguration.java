@@ -1,4 +1,4 @@
-package org.hejwo.r2dbc.ReactivePostgreSql.config;
+package org.hejwo.r2dbc.reactivepostgres.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

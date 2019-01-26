@@ -1,6 +1,6 @@
-package org.hejwo.r2dbc.ReactivePostgreSql;
+package org.hejwo.r2dbc.reactivepostgres;
 
-import org.hejwo.r2dbc.ReactivePostgreSql.config.DataSourceConfiguration;
+import org.hejwo.r2dbc.reactivepostgres.config.DataSourceConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.yandex.qatools.embed.postgresql.PostgresExecutable;

@@ -1,8 +1,8 @@
-package org.hejwo.r2dbc.ReactivePostgreSql.domain.user;
+package org.hejwo.r2dbc.reactivepostgres.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.hejwo.r2dbc.ReactivePostgreSql.domain.common.Aggregate;
+import org.hejwo.r2dbc.reactivepostgres.domain.common.Aggregate;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;

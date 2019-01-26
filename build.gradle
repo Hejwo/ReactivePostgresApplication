@@ -29,7 +29,7 @@ repositories {
 }
 
 springBoot {
-	mainClassName = "org.hejwo.r2dbc.ReactivePostgreSql.ReactivePostgreSqlApplication"
+	mainClassName = "org.hejwo.r2dbc.reactivepostgres.ReactivePostgresApplication"
 }
 
 configurations {

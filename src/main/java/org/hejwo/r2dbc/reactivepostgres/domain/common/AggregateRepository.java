@@ -1,4 +1,4 @@
-package org.hejwo.r2dbc.ReactivePostgreSql.domain.common;
+package org.hejwo.r2dbc.reactivepostgres.domain.common;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 

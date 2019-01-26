@@ -1,4 +1,4 @@
-package org.hejwo.r2dbc.ReactivePostgreSql
+package org.hejwo.r2dbc.reactivepostgres
 
 
 import org.springframework.boot.test.context.SpringBootTest
@@ -8,8 +8,8 @@ import spock.lang.Specification
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes = [ReactivePostgreSqlApplication])
-class ReactivePostgreSqlApplicationSpec extends Specification {
+@ContextConfiguration(classes = [ReactivePostgresApplication])
+class ReactivePostgresApplicationSpec extends Specification {
 
     def "should load context"() {
         expect:

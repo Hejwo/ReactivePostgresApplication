@@ -1,4 +1,4 @@
-package org.hejwo.r2dbc.ReactivePostgreSql
+package org.hejwo.r2dbc.reactivepostgres
 
 import spock.lang.Specification
 
