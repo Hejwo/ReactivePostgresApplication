@@ -1,4 +1,4 @@
-## Reactive Postgres Application wuth Spring WebFlux & R2BDC
+## Reactive Postgres Application with Spring WebFlux & R2BDC
 
 ### 1. Motivation
 Purpose of this repository is creating real-life application example of Spring WebFlux and R2DBC.  
