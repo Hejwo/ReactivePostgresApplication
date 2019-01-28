@@ -13,6 +13,9 @@ I try to keep my git commits clean so you can easily follow history and configur
 1. Basic project creation (including adding Spock and `integrationTest` module)  
 2. Added newest, properly configured R2DBC  
 3. Added embedded Postgres  
-4. Created first `ReactiveRepository` -> UserRepository
+4. Created first `ReactiveRepository` -> UserAccountRepository
+5. Flyway is on and we are inserting DB patches
+6. `UserController` -> loads all users
+7. `UserAccountE2ESpec`, `UserAccountRepositorySpec` -> first integration tests
 
  

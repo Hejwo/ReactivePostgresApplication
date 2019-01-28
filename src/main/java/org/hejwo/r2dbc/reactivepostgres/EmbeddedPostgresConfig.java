@@ -17,8 +17,7 @@ import java.util.Arrays;
 public class EmbeddedPostgresConfig {
 
     @Bean(destroyMethod = "stop", name = "postgresProcess")
-    public PostgresProcess postgresProcess(PostgresConfig postgresConfig,
-                                           DataSourceConfiguration dataSource) throws IOException {
+    public PostgresProcess postgresProcess(PostgresConfig postgresConfig) throws IOException {
         PostgresStarter<PostgresExecutable, PostgresProcess> runtime = PostgresStarter.getDefaultInstance();
         PostgresExecutable exec = runtime.prepare(postgresConfig);
         PostgresProcess process = exec.start();
