@@ -1,7 +1,9 @@
 package org.hejwo.r2dbc.reactivepostgres.domain.user;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hejwo.r2dbc.reactivepostgres.domain.common.Aggregate;
 import org.springframework.data.annotation.Id;
 
@@ -9,7 +11,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
+@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserAccount implements Aggregate {
 
     @Id
