@@ -1,6 +1,7 @@
 package org.hejwo.r2dbc.reactivepostgres
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.json.JsonSlurper
 import org.junit.Before
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -16,6 +17,8 @@ trait WebTestClientTrait {
     @Autowired
     ObjectMapper mapper
 
+    JsonSlurper jsonSlurper = new JsonSlurper()
+
     @Before
     def setupWebTestClient() {
         webTestClient = createWebTestClient(applicationContext)
@@ -25,6 +28,10 @@ trait WebTestClientTrait {
         return WebTestClient
                 .bindToApplicationContext(applicationContext)
                 .build()
+    }
+
+    def jsonToObject(String json) {
+        jsonSlurper.parseText(json)
     }
 
 }

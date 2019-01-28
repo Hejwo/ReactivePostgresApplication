@@ -1,19 +1,31 @@
 package org.hejwo.r2dbc.reactivepostgres.domain.user
 
-import groovy.json.JsonSlurper
+
 import org.hejwo.r2dbc.reactivepostgres.IntegrationSpec
+import org.hejwo.r2dbc.reactivepostgres.ReactivePostgresApplication
 import org.hejwo.r2dbc.reactivepostgres.WebTestClientTrait
 import org.springframework.beans.factory.annotation.Autowired
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UserAccountE2ESpec extends IntegrationSpec implements WebTestClientTrait {
 
     @Autowired
     UserAccountRepository userAccountRepository
 
+    void setup() {
+        userAccountRepository.deleteAll().block()
+    }
+
     def "should list all users"() {
         given:
             def account1 = userAccountRepository.save(new UserAccount("Piotr", "Hejwowski", "123456789", "piotr.hejwowski@at.me"))
             def account2 = userAccountRepository.save(new UserAccount("John", "Doe", "923456789", "john.doe@at.me"))
+
+            def accounts = account1.zipWith(account2).block()
+            def account1Saved = accounts.getT1()
+            def account2Saved = accounts.getT2()
 
         expect:
             def response = webTestClient.get()
@@ -26,33 +38,35 @@ class UserAccountE2ESpec extends IntegrationSpec implements WebTestClientTrait {
             def expectedResponse = '''
             [
               {
-                "uuid": "f4decd61-ab6b-4e9b-920e-1ad62320fa6b",
+                "uuid": "UUID1",
                 "firstName": "Piotr",
                 "lastName": "Hejwowski",
-                "email": "no@mail.please",
-                "createdAt": "2019-01-28T20:24:40"
+                "email": "piotr.hejwowski@at.me",
+                "phone": "123456789",
+                "createdAt": "DATE1"
               },
               {
-                "uuid": "aa3280dc-8457-4769-8134-d31ad3a7bee2",
-                "firstName": "Tomasz",
-                "lastName": "Tomaszewski",
-                "email": "tomas@mail.please",
-                "createdAt": "2019-01-28T20:24:40"
+                "uuid": "UUID2",
+                "firstName": "John",
+                "lastName": "Doe",
+                "email": "john.doe@at.me",
+                "phone": "923456789",
+                "createdAt": "DATE2"
               }
             ]
-        '''
+        '''.replace("UUID1", account1Saved.uuid)
+           .replace("UUID2", account2Saved.uuid)
+           .replace("DATE1", formatDate(account1Saved.created))
+           .replace("DATE2", formatDate(account2Saved.created))
 
-            def responseMap = new JsonSlurper().parseText(response)
-            responseMap[0].firstName == "Piotr"
-            responseMap[0].lastName == "Hejwowski"
-            responseMap[0].email == "no@mail.please"
-            responseMap[0].phone == "123456789"
+        def responseMap = jsonToObject(response)
+        def expectedMap = jsonToObject(expectedResponse)
 
-            println(response)
-//            responseMap[1].firstName == "John"
-//            responseMap[1].lastName == "Doe"
-//            responseMap[1].email == "no@mail.please"
-//            responseMap[1].phone == "923456789"
+        responseMap == expectedMap
     }
 
+    String formatDate(LocalDateTime time) {
+        def formatter = DateTimeFormatter.ofPattern(ReactivePostgresApplication.DEFAULT_DATE_FORMAT)
+        formatter.format(time)
+    }
 }
