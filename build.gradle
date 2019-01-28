@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.9.BUILD-SNAPSHOT'
+		springBootVersion = '2.1.0.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -57,8 +57,9 @@ dependencies {
 	compile group: 'io.r2dbc', name: 'r2dbc-postgresql', version: '1.0.0.M6'
 	
 	// Database
+	compile 'org.postgresql:postgresql:9.4.1209'
 	compile 'ru.yandex.qatools.embed:postgresql-embedded:1.21'
-	compile 'org.flywaydb:flyway-core:4.0.2'
+	compile 'org.flywaydb:flyway-core:5.2.4'
 }
 
 dependencies {
