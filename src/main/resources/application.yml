@@ -8,3 +8,10 @@ spring:
     username: hejwo
     password: EeV5eiva
     database: r2dbc
+
+management:
+  endpoints:
+    web:
+      base-path: /metrics
+      exposure:
+        include: health,info,prometheus
