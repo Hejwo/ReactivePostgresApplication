@@ -15,6 +15,6 @@ spring:
 management:
   endpoints:
     web:
-      base-path: /metrics
+      base-path: /api/
       exposure:
-        include: health,info,prometheus
+        include: health,info,prometheus,metrics,threaddump

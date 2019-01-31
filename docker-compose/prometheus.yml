@@ -6,7 +6,7 @@ scrape_configs:
   - targets: ['localhost:9090']
 
 - job_name: 'backend'
-  metrics_path: '/metrics/prometheus'
+  metrics_path: '/api/prometheus'
   scrape_interval: 5s
   static_configs:
   - targets: ['backend:8888']

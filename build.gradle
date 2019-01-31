@@ -58,7 +58,7 @@ dependencies {
 	// Metrics
 	compile 'org.springframework.boot:spring-boot-starter-actuator'
 	compile 'io.micrometer:micrometer-registry-prometheus'
-	compile 'io.prometheus:simpleclient_common:latest.release'
+	compile 'io.prometheus:simpleclient_spring_boot:0.6.0'
 
 	// R2DBC
 	compile group: 'org.springframework.data', name: 'spring-data-r2dbc', version: '1.0.0.M1'
@@ -117,6 +117,3 @@ task image(type: Docker, dependsOn: assemble) {
 		}
 	}
 }
-
-clean.dependsOn build
-build.mustRunAfter clean
