@@ -11,7 +11,7 @@ class UserAccountRepositorySpec extends IntegrationSpec {
     UserAccountRepository userRepository
 
     void cleanup() {
-        userRepository.deleteAll()
+        userRepository.deleteAll().block()
     }
 
     def "should save user"() {
@@ -39,7 +39,6 @@ class UserAccountRepositorySpec extends IntegrationSpec {
 
         then:
             StepVerifier.create(foundUsers)
-                    .expectNextCount(2)
                     .verifyComplete()
     }
 }

@@ -5,7 +5,7 @@ spring:
   flyway:
     locations: ["classpath:flyway"]
   datasource:
-    url: jdbc:postgresql://database:5432/r2dbc
+    url: jdbc:postgresql://localhost:5432/r2dbc
     host: localhost
     port: 5432
     username: hejwo

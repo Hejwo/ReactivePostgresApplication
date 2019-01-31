@@ -2,6 +2,7 @@ package org.hejwo.r2dbc.reactivepostgres.domain.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hejwo.r2dbc.reactivepostgres.domain.user.UserAccount;
 import org.hejwo.r2dbc.reactivepostgres.domain.user.UserService;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Comparator;
 
 @Slf4j
 @RestController
@@ -26,6 +29,7 @@ public class UserController {
     )
     public Flux<UserListItem> getAllUsers() {
         return userService.getAllUsers()
+                .sort(Comparator.comparing(UserAccount::getLastName))
                 .map(UserListItem::from)
                 .onErrorResume(this::catchError);
     }

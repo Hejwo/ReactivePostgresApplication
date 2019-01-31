@@ -38,20 +38,20 @@ class UserAccountE2ESpec extends IntegrationSpec implements WebTestClientTrait {
             def expectedResponse = '''
             [
               {
-                "uuid": "UUID1",
-                "firstName": "Piotr",
-                "lastName": "Hejwowski",
-                "email": "piotr.hejwowski@at.me",
-                "phone": "123456789",
-                "createdAt": "DATE1"
-              },
-              {
                 "uuid": "UUID2",
                 "firstName": "John",
                 "lastName": "Doe",
                 "email": "john.doe@at.me",
                 "phone": "923456789",
                 "createdAt": "DATE2"
+              },            
+              {
+                "uuid": "UUID1",
+                "firstName": "Piotr",
+                "lastName": "Hejwowski",
+                "email": "piotr.hejwowski@at.me",
+                "phone": "123456789",
+                "createdAt": "DATE1"
               }
             ]
         '''.replace("UUID1", account1Saved.uuid)

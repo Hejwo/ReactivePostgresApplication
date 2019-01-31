@@ -9,16 +9,17 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'docker'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'org.hejwo.r2dbc'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -50,12 +51,12 @@ sourceSets {
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-webflux'
-	compile 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
 
 	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
 
 	// Metrics
+	compile 'org.springframework.boot:spring-boot-starter-actuator'
 	compile 'io.micrometer:micrometer-registry-prometheus'
 	compile 'io.prometheus:simpleclient_common:latest.release'
 
@@ -78,11 +79,44 @@ dependencies {
 	testCompile 'org.codehaus.groovy:groovy:2.4.7'
 }
 
+test {
+	beforeTest { descriptor ->
+		logger.lifecycle("Test -> class: ${descriptor.className.padRight(65)}, name: '${descriptor.name}'")
+	}
+}
+
 task integrationTest(type: Test) {
 	group 'verification'
+
 	classpath = sourceSets.integrationTest.runtimeClasspath
 	testClassesDirs = sourceSets.integrationTest.output.classesDirs
 }
 
+integrationTest {
+	beforeTest { descriptor ->
+		logger.lifecycle("IntegrationTest -> class: ${descriptor.className.padRight(65)}, name: '${descriptor.name}'")
+	}
+}
+
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
+
+task image(type: Docker, dependsOn: assemble) {
+	group 'application'
+	dependsOn 'build'
+
+	push = false
+
+	tag = "${projectDir.name}_${applicationName}".toLowerCase()
+	dockerfile = file('docker/Dockerfile')
+	doFirst {
+		copy {
+			from jar
+			from 'docker'
+			into stageDir
+		}
+	}
+}
+
+clean.dependsOn build
+build.mustRunAfter clean

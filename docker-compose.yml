@@ -1,0 +1,74 @@
+version: '2.1'
+services:
+
+  backend:
+    image: reactivepostgresql_reactivepostgresql
+    restart: always
+    ports:
+      - 8080
+
+  prometheus:
+    image: prom/prometheus:v2.6.1
+    restart: always
+    ports:
+    - 9090
+    volumes:
+    - ./docker-compose/prometheus.yml:/etc/prometheus/prometheus.yml
+    - prometheus-data:/prometheus
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:9090/-/ready"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 3
+
+  grafana:
+    image: grafana/grafana:5.4.3
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASS}
+    ports:
+    - 3000
+    volumes:
+    - grafana-data:/var/lib/grafana
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  cadvisor:
+    image: google/cadvisor:v0.32.0
+    restart: always
+    container_name: cadvisor
+    ports:
+      - 8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /cgroup:/cgroup:ro
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 3
+
+  database:
+    image: postgres:9.5.3
+    restart: always
+    environment:
+      POSTGRES_DB: "r2dbc"
+      POSTGRES_USER: "hejwo"
+      POSTGRES_PASSWORD: "EeV5eiva"
+    ports:
+    - "5432"
+    volumes:
+    - postgres:/var/lib/postgresql
+    - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  prometheus-data: {}
+  grafana-data: {}
+  postgres: {}
+  postgres-data: {}
